@@ -8,6 +8,7 @@ String generateL10nDartFileContent(
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';${otaEnabled ? '\n${_generateLocalizelySdkImport()}' : ''}
+import 'package:multiple_localization/multiple_localization.dart';
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -68,8 +69,20 @@ ${locales.map((locale) => _generateLocale(locale)).join("\n")}
 
   @override
   bool isSupported(Locale locale) => _isSupported(locale);
+
+  // @override
+  // Future<$className> load(Locale locale) => $className.load(locale);
+
   @override
-  Future<$className> load(Locale locale) => $className.load(locale);
+  Future<$className> load(Locale locale) {
+    return MultipleLocalizations.load(
+      initializeMessages,
+      locale,
+      (l) => $className.load(locale),
+      setDefaultLocale: true,
+    );
+  }
+
   @override
   bool shouldReload(AppLocalizationDelegate old) => false;
 
